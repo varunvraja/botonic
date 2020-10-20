@@ -102,7 +102,7 @@ export class DummyCMS implements CMS {
   }
 
   queue(id: string, {} = DEFAULT_CONTEXT): Promise<Queue> {
-    return Promise.resolve(new Queue(new CommonFields(id, id), id))
+    return Promise.resolve(new Queue(new CommonFields(id, id), id, id))
   }
 
   topContents(
