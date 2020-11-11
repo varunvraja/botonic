@@ -25,12 +25,19 @@ export class HubtypeService {
     }
   }
 
+  /**
+   * @returns {Promise<void>}
+   */
   init(user, lastMessageId, lastMessageUpdateDate) {
     if (user) this.user = user
     if (lastMessageId) this.lastMessageId = lastMessageId
     if (lastMessageUpdateDate)
       this.lastMessageUpdateDate = lastMessageUpdateDate
-    if (this.pusher || !this.user.id || !this.appId) return null
+    if (this.pusher) return Promise.resolve()
+    if (!this.user.id || !this.appId) {
+      // TODO recover user & appId somehow
+      return Promise.reject('No User or appId. Clear cache and reload')
+    }
     this.pusher = new Pusher(PUSHER_KEY, {
       cluster: 'eu',
       authEndpoint: `${HUBTYPE_API_URL}/v1/provider_accounts/webhooks/webchat/${this.appId}/auth/`,
@@ -102,15 +109,9 @@ export class HubtypeService {
     })
   }
 
-  // eslint-disable-next-line consistent-return
   async postMessage(user, message) {
     try {
       await this.init(user)
-    } catch (e) {
-      this.handleUnsentInput(message)
-      return Promise.resolve()
-    }
-    try {
       return axios
         .post(
           `${HUBTYPE_API_URL}/v1/provider_accounts/webhooks/webchat/${this.appId}/`,
@@ -126,6 +127,7 @@ export class HubtypeService {
         .catch(e => this.handleUnsentInput(message))
     } catch (e) {
       this.handleUnsentInput(message)
+      return Promise.resolve()
     }
   }
 
