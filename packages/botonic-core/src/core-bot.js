@@ -64,7 +64,7 @@ export class CoreBot {
       } catch (e) {}
     }
 
-    if (isFunction(this.routes)) {
+    if (!this.router) {
       this.router = new Router(
         [
           ...(await this.routes({ input, session, lastRoutePath })),

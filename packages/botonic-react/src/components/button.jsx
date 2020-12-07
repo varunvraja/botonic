@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { COLORS, WEBCHAT } from '../constants'
 import { WebchatContext } from '../contexts'
 import { renderComponent } from '../util/react'
+import { ButtonProps } from './index'
 
 const StyledButton = styled.button`
   display: flex;
@@ -27,6 +28,9 @@ const StyledButton = styled.button`
   overflow: hidden;
 `
 
+/**
+ * @param {ButtonProps} props
+ */
 export const Button = props => {
   const {
     webchatState,
@@ -46,7 +50,7 @@ export const Button = props => {
     )
     if (props.webview) openWebview(props.webview, props.params)
     else if (props.path) {
-      type == INPUT.POSTBACK
+      type === INPUT.POSTBACK
         ? sendPayload(`__PATH_PAYLOAD__${props.path}`)
         : sendInput({
             type: INPUT.TEXT,
@@ -54,7 +58,7 @@ export const Button = props => {
             payload: `__PATH_PAYLOAD__${props.path}`,
           })
     } else if (props.payload) {
-      type == INPUT.POSTBACK
+      type === INPUT.POSTBACK
         ? sendPayload(props.payload)
         : sendInput({
             type: INPUT.TEXT,

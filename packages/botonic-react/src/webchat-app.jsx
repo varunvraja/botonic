@@ -4,10 +4,14 @@ import React, { createRef } from 'react'
 import { render } from 'react-dom'
 
 import { SENDERS } from './constants'
+import { Event, WebchatMessage } from './index'
 import { msgToBotonic } from './msg-to-botonic'
 import { Webchat } from './webchat/webchat'
 
 export class WebchatApp {
+  /**
+   * @param {ThemeProps}  theme
+   */
   constructor({
     theme = {},
     persistentMenu,
@@ -49,16 +53,16 @@ export class WebchatApp {
     this.appId = appId
   }
 
-  onInitWebchat(...args) {
-    this.onInit && this.onInit(this, ...args)
+  onInitWebchat() {
+    this.onInit && this.onInit(this)
   }
 
-  onOpenWebchat(...args) {
-    this.onOpen && this.onOpen(this, ...args)
+  onOpenWebchat() {
+    this.onOpen && this.onOpen(this)
   }
 
-  onCloseWebchat(...args) {
-    this.onClose && this.onClose(this, ...args)
+  onCloseWebchat() {
+    this.onClose && this.onClose(this)
   }
 
   async onUserInput({ user, input }) {
@@ -71,6 +75,9 @@ export class WebchatApp {
     return this.hubtypeService.resendUnsentInputs()
   }
 
+  /**
+   * @param messagesJSON: WebchatMessage[]
+   */
   onStateChange({ session: { user }, messagesJSON }) {
     if (!this.hubtypeService && user) {
       const lastMessage = messagesJSON[messagesJSON.length - 1]
@@ -88,6 +95,9 @@ export class WebchatApp {
     }
   }
 
+  /**
+   * @param {Event} event
+   */
   onServiceEvent(event) {
     if (event.isError)
       this.webchatRef.current.setError({ message: event.errorMessage })
@@ -245,9 +255,9 @@ export class WebchatApp {
         storageKey={storageKey}
         defaultDelay={defaultDelay}
         defaultTyping={defaultTyping}
-        onInit={(...args) => this.onInitWebchat(...args)}
-        onOpen={(...args) => this.onOpenWebchat(...args)}
-        onClose={(...args) => this.onCloseWebchat(...args)}
+        onInit={() => this.onInitWebchat()}
+        onOpen={() => this.onOpenWebchat()}
+        onClose={() => this.onCloseWebchat()}
         onUserInput={(...args) => this.onUserInput(...args)}
         onStateChange={webchatState => this.onStateChange(webchatState)}
         resendUnsentInputs={() =>

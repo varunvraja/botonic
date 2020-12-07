@@ -105,6 +105,7 @@ export interface SessionUser {
   provider_id?: string
 }
 
+// eslint-disable @typescript-eslint/naming-convention
 export interface Session {
   bot: {
     id: string
@@ -112,7 +113,7 @@ export interface Session {
   }
   __locale?: string
   __retries?: number
-  is_first_interaction?: boolean
+  is_first_interaction: boolean
   last_session?: any
   organization?: string
   user: SessionUser
@@ -121,6 +122,7 @@ export interface Session {
   _hubtype_case_typification?: string
   _shadowing?: boolean
 }
+// eslint-enable @typescript-eslint/naming-convention
 
 type InputMatcher = (input: Input) => boolean
 type ParamsMatcher =
@@ -130,7 +132,7 @@ type SessionMatcher = (session: Session) => boolean
 type RequestMatcher = (request: BotRequest) => boolean
 type StringMatcher = RegExp | string | ((data: string) => boolean)
 
-type RouteMatcher =
+export type RouteMatcher =
   | InputMatcher
   | ParamsMatcher
   | RequestMatcher
@@ -140,9 +142,13 @@ type RouteMatcher =
 export interface Route {
   action?: any
   childRoutes?: Route[]
+  defaultAction?: any
+  lastRoutePath?: string
+  ignoreRetry?: boolean
   path?: StringMatcher
   redirect?: string
   retryAction?: any
+  retry?: number
 
   // matchers
   input?: InputMatcher
@@ -336,3 +342,7 @@ export class Inspector {
 export function isBrowser(): boolean
 export function isMobile(mobileBreakpoint?: number): boolean
 export function isNode(): boolean
+
+export type Params = { [key: string]: string }
+
+export function params2queryString(params: Params): string

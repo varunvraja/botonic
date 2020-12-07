@@ -1,11 +1,23 @@
+import { isNode } from '@botonic/core'
+
 export const isDev = process.env.NODE_ENV === 'development'
 export const isProd = process.env.NODE_ENV === 'production'
 
 export const staticAsset = path => {
   try {
-    const scriptBaseURL = document
-      .querySelector('script[src$="webchat.botonic.js"]')
-      .getAttribute('src')
+    if (isNode()) {
+      return path
+    }
+    const scriptBase = document.querySelector(
+      'script[src$="webchat.botonic.js"]'
+    )
+    if (!scriptBase) {
+      throw new Error('webchat.botonic.js not found in dom')
+    }
+    const scriptBaseURL = scriptBase.getAttribute('src')
+    if (!scriptBaseURL) {
+      throw new Error('no src attribute found ')
+    }
     const scriptName = scriptBaseURL.split('/').pop()
     const basePath = scriptBaseURL.replace('/' + scriptName, '/')
     return basePath + path

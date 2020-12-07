@@ -44,6 +44,7 @@ export class HubtypeService {
       forceTLS: true,
       auth: {
         headers: this.constructHeaders(),
+        params: null,
       },
     })
     this.channel = this.pusher.subscribe(this.pusherChannel)
@@ -51,8 +52,8 @@ export class HubtypeService {
       const cleanAndReject = msg => {
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
         clearTimeout(connectTimeout)
-        this.pusher.connection.unbind()
-        this.channel.unbind()
+        if (this.pusher) this.pusher.connection.unbind()
+        if (this.channel) this.channel.unbind()
         this.pusher = null
         reject(msg)
       }
@@ -60,6 +61,10 @@ export class HubtypeService {
         () => cleanAndReject('Connection Timeout'),
         10000
       )
+      if (!this.pusher || !this.channel) {
+        reject('Cannot bind pusher because connection was reset')
+        return
+      }
       this.channel.bind('pusher:subscription_succeeded', () => {
         clearTimeout(connectTimeout)
         resolve()
@@ -124,7 +129,7 @@ export class HubtypeService {
           if (res && res.status === 200) this.handleSentInput(message)
           return
         })
-        .catch(e => this.handleUnsentInput(message))
+        .catch(() => this.handleUnsentInput(message))
     } catch (e) {
       this.handleUnsentInput(message)
       return Promise.resolve()

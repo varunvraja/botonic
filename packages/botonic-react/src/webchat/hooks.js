@@ -1,6 +1,7 @@
 import { useEffect, useReducer, useRef, useState } from 'react'
 
 import { COLORS, WEBCHAT } from '../constants'
+import { WebchatContextInterface } from '../contexts'
 import { scrollToBottom } from '../util/dom'
 import {
   ADD_MESSAGE,
@@ -24,8 +25,13 @@ import {
   UPDATE_TYPING,
   UPDATE_WEBVIEW,
 } from './actions'
+import { WebchatState } from './index'
 import { webchatReducer } from './webchat-reducer'
 
+/**
+ *
+ * @type {WebchatState}
+ */
 export const webchatInitialState = {
   width: WEBCHAT.DEFAULTS.WIDTH,
   height: WEBCHAT.DEFAULTS.HEIGHT,
@@ -36,7 +42,7 @@ export const webchatInitialState = {
   typing: false,
   webview: null,
   webviewParams: null,
-  session: { user: null },
+  session: {}, // it was { user: null },
   lastRoutePath: null,
   handoff: false,
   theme: {
@@ -60,6 +66,9 @@ export const webchatInitialState = {
   currentAttachment: undefined,
 }
 
+/**
+ * @return {WebchatContextInterface & {webchatState: WebchatState} & {webchatDispatch: WebchatDispatch}}
+ */
 export function useWebchat() {
   const [webchatState, webchatDispatch] = useReducer(
     webchatReducer,

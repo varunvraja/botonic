@@ -5,6 +5,8 @@
 // require("@babel/register");
 
 /*
+
+
  * This babel configuration is used along with Jest for execute tests,
  * do not modify to avoid conflicts with webpack.config.js.
  */

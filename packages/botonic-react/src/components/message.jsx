@@ -66,6 +66,10 @@ const BlobTick = styled.div`
   border: ${props => props.pointerSize}px solid ${COLORS.TRANSPARENT};
 `
 
+/**
+ * @param {MessageProps} props
+ * @return {JSX.Element}
+ */
 export const Message = props => {
   const { defaultTyping, defaultDelay } = useContext(RequestContext)
   const {
@@ -151,7 +155,7 @@ export const Message = props => {
           url: r.props.url,
           text: r.props.children,
         })),
-        display: delay + typing == 0,
+        display: delay + typing === 0,
         customTypeName: decomposedChildren.customTypeName,
         ack: ack,
       }
@@ -164,7 +168,7 @@ export const Message = props => {
       if (
         msg &&
         msg.display &&
-        webchatState.messagesJSON.filter(m => !m.display).length == 0
+        webchatState.messagesJSON.filter(m => !m.display).length === 0
       ) {
         updateReplies(replies)
       }
