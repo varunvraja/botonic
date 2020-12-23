@@ -44,5 +44,5 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         flags: ${{env.PACKAGE}}
-        directory: ./packages/${{env.PACKAGE}}/coverage
-        #name: ${{env.PACKAGE}}
+        file: ./packages/${{env.PACKAGE}}/coverage/clover.xml
+        name: ${{env.PACKAGE}}
