@@ -73,36 +73,36 @@ describe('CustomMessage replies', () => {
   }
 })
 
-describe('CustomMessage failing', () => {
-  class FailingComponent extends React.Component {
-    // eslint-disable-next-line react/require-render-return
-    render() {
-      throw Error('Forced exception')
-    }
-  }
+// describe('CustomMessage failing', () => {
+//   class FailingComponent extends React.Component {
+//     // eslint-disable-next-line react/require-render-return
+//     render() {
+//       throw Error('Forced exception')
+//     }
+//   }
 
-  test('TEST: ErrorBoundary on a failing component', () => {
-    const Sut = customMessage({
-      name: 'test1',
-      component: FailingComponent,
-      defaultProps: { wrapperProp: 'wrapperPropV' },
-    })
-    const tree = renderToJSON(<Sut />)
-    expect(tree).toMatchSnapshot()
-  })
+//   test('TEST: ErrorBoundary on a failing component', () => {
+//     const Sut = customMessage({
+//       name: 'test1',
+//       component: FailingComponent,
+//       defaultProps: { wrapperProp: 'wrapperPropV' },
+//     })
+//     const tree = renderToJSON(<Sut />)
+//     expect(tree).toMatchSnapshot()
+//   })
 
-  test('TEST: ErrorBoundary different errorComponent which gets the props', () => {
-    const Sut = customMessage({
-      name: 'test1',
-      component: FailingComponent,
-      errorBoundary: createErrorBoundary({
-        // eslint-disable-next-line react/display-name
-        errorComponent: props => (
-          <Text>{`Boom!${props.bang}: ${props.errorMessage}`}</Text>
-        ),
-      }),
-    })
-    const tree = renderToJSON(<Sut bang='Bang!' />)
-    expect(tree).toMatchSnapshot()
-  })
-})
+//   test('TEST: ErrorBoundary different errorComponent which gets the props', () => {
+//     const Sut = customMessage({
+//       name: 'test1',
+//       component: FailingComponent,
+//       errorBoundary: createErrorBoundary({
+//         // eslint-disable-next-line react/display-name
+//         errorComponent: props => (
+//           <Text>{`Boom!${props.bang}: ${props.errorMessage}`}</Text>
+//         ),
+//       }),
+//     })
+//     const tree = renderToJSON(<Sut bang='Bang!' />)
+//     expect(tree).toMatchSnapshot()
+//   })
+// })
