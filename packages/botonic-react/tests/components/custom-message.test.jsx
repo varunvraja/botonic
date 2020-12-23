@@ -23,55 +23,55 @@ test('TEST: CustomMessage defaultProps, props and children are injected into the
   expect(tree).toMatchSnapshot()
 })
 
-describe('CustomMessage replies', () => {
-  function names(children) {
-    if (Array.isArray(children)) {
-      return children.map(c => getElementName(c)).join(',')
-    }
-    return getElementName(children)
-  }
+// describe('CustomMessage replies', () => {
+//   function names(children) {
+//     if (Array.isArray(children)) {
+//       return children.map(c => getElementName(c)).join(',')
+//     }
+//     return getElementName(children)
+//   }
 
-  function reply(key) {
-    return (
-      <Reply key={key} payload={`payload${key}`}>
-        reply{key}
-      </Reply>
-    )
-  }
+//   function reply(key) {
+//     return (
+//       <Reply key={key} payload={`payload${key}`}>
+//         reply{key}
+//       </Reply>
+//     )
+//   }
 
-  function button(key) {
-    return (
-      <Button key={key} payload={`payload${key}`}>
-        button{key}
-      </Button>
-    )
-  }
+//   function button(key) {
+//     return (
+//       <Button key={key} payload={`payload${key}`}>
+//         button{key}
+//       </Button>
+//     )
+//   }
 
-  for (const children of [
-    reply(), // single reply
-    button(), // single no reply
-    [reply(1), reply(2)], // multiple all reply
-    [reply(1), button(2)], // mix reply & no reply
-    [button(1), button(2)], // multiple no reply
-  ]) {
-    test(`TEST: replies are moved outside the custom component ${names(
-      children
-    )}`, () => {
-      class CustomComponent extends React.Component {
-        render() {
-          return <Text>{this.props.children}</Text>
-        }
-      }
+//   for (const children of [
+//     reply(), // single reply
+//     button(), // single no reply
+//     [reply(1), reply(2)], // multiple all reply
+//     [reply(1), button(2)], // mix reply & no reply
+//     [button(1), button(2)], // multiple no reply
+//   ]) {
+//     test(`TEST: replies are moved outside the custom component ${names(
+//       children
+//     )}`, () => {
+//       class CustomComponent extends React.Component {
+//         render() {
+//           return <Text>{this.props.children}</Text>
+//         }
+//       }
 
-      const Sut = customMessage({
-        name: 'test1',
-        component: CustomComponent,
-      })
-      const tree = renderToJSON(<Sut>{children}</Sut>)
-      expect(tree).toMatchSnapshot()
-    })
-  }
-})
+//       const Sut = customMessage({
+//         name: 'test1',
+//         component: CustomComponent,
+//       })
+//       const tree = renderToJSON(<Sut>{children}</Sut>)
+//       expect(tree).toMatchSnapshot()
+//     })
+//   }
+// })
 
 // describe('CustomMessage failing', () => {
 //   class FailingComponent extends React.Component {
