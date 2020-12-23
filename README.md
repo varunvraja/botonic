@@ -17,10 +17,19 @@
 
 # What's in this document
 
-- [Introduction](#-introduction)
-- [Getting Started](#-getting-started)
-- [Supporting and contributing](#-supporting-and-contributing)
-- [Related Links](#-related-links)
+- [Botonic](#botonic)
+    - [Build Chatbots and Conversational Apps Using React](#build-chatbots-and-conversational-apps-using-react)
+- [What's in this document](#whats-in-this-document)
+- [🐣 Introduction](#-introduction)
+- [🚀 Getting Started](#-getting-started)
+    - [Requirements](#requirements)
+    - [Install](#install)
+    - [Create a bot](#create-a-bot)
+    - [Run your bot](#run-your-bot)
+    - [Deploy](#deploy)
+- [🤝 Supporting and contributing](#-supporting-and-contributing)
+- [📚 Related Links](#-related-links)
+- [Code cov](#code-cov)
 
 <!-- tocstop -->
 
@@ -110,3 +119,8 @@ Check out the [Getting Started Tutorial](https://botonic.io/docs/getting-started
 - [Slack](https://slack.botonic.io/) - Slack channel
 
 - [Twitter](https://twitter.com/botonic_) - Twitter
+
+
+# Code cov
+
+[![codecov](https://codecov.io/gh/hubtype/botonic/branch/master/graph/badge.svg?token=P5D6F7V9XD)](https://codecov.io/gh/hubtype/botonic)
