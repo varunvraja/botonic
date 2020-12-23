@@ -2,12 +2,19 @@ import React from 'react'
 import TestRenderer from 'react-test-renderer'
 
 import { Button } from '../../src/components/button'
+import { hello } from '../../src/components/buttonix'
 import { Reply } from '../../src/components/reply'
 import { Text } from '../../src/components/text'
 
 const renderToJSON = sut => TestRenderer.create(sut).toJSON()
 
 describe('Text Component', () => {
+  test('buttonix test', () => {
+    hello()
+
+    expect('hello').not.toBe(null)
+  })
+
   test('Just one Text', () => {
     const sut = <Text>Just one Text</Text>
     const tree = renderToJSON(sut)
