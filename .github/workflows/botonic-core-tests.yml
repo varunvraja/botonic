@@ -39,7 +39,7 @@ jobs:
     - name: Verify index.d.ts
       run: scripts/qa/lint-d-ts.sh packages/$PACKAGE
 
-    - name: Upload coverage to codecov
+    - name: Upload botonic-core coverage to codecov
       uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
