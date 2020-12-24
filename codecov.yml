@@ -2,8 +2,28 @@ coverage:
   status:
     project:
       default:
+        flags:
+          - botonic-plugin-contentful
+          - botonic-react
+          - botonic-core
+          - botonic-plugin-dynamodb
+      botonic-plugin-contentful:
+        flags:
+          - botonic-plugin-contentful
+      botonic-react:
+        flags:
+          - botonic-react
+      botonic-core:
+        flags:
+          - botonic-core
+      botonic-plugin-dynamodb:
+        flags:
+          - botonic-plugin-dynamodb
+      
+        
+        
         # if the coverage is under this value the Codecov GitHub check will fail
-        threshold: 40%
+        #threshold: 40%
 flags:
   botonic-plugin-contentful:
     paths:
