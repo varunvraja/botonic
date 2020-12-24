@@ -122,6 +122,7 @@ export const Button = props => {
 
   const renderNode = () => {
     bye()
+    hello()
     if (props.webview) {
       const Webview = props.webview
       let params = ''
