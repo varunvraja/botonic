@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { COLORS, WEBCHAT } from '../constants'
 import { WebchatContext } from '../contexts'
 import { renderComponent } from '../util/react'
+import { bye, hello } from './buttonix'
 
 const StyledButton = styled.button`
   display: flex;
@@ -39,6 +40,8 @@ export const Button = props => {
   const { theme } = webchatState
 
   const handleClick = event => {
+    hello()
+    bye()
     event.preventDefault()
     const type = getThemeProperty(
       WEBCHAT.CUSTOM_PROPERTIES.buttonMessageType,
@@ -118,6 +121,7 @@ export const Button = props => {
   }
 
   const renderNode = () => {
+    bye()
     if (props.webview) {
       const Webview = props.webview
       let params = ''
